@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Instagram XGC Search Assistant - Team Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #232f3e;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #232f3e;
+            color: white;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .setup-screen {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 700px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .setup-screen h2 {
+            color: #232f3e;
+            margin-bottom: 20px;
+        }
+        
+        .setup-instructions {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .setup-instructions h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .setup-instructions ol {
+            margin-left: 20px;
+            color: #0d47a1;
+        }
+        
+        .setup-instructions li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .setup-instructions strong {
+            color: #01579b;
+        }
+        
+        .setup-instructions a {
+            color: #1976d2;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #232f3e;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+        
+        .btn-primary {
+            padding: 12px 24px;
+            background: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #e88b00;
+        }
+        
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #146eb4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: #0d5a8f;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .connected-status {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .connected-status h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .connected-status p {
+            color: #155724;
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #e83e8c;
+        }
+        
+        .video-demo {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .video-demo h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .video-demo p {
+            color: #856404;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Amazon Instagram XGC Search Assistant</h1>
+            <p>Team Collaboration Edition - Powered by Airtable</p>
+        </header>
+        
+        <div id="setupScreen" class="setup-screen">
+            <h2>🚀 5-Minute Setup: Connect to Airtable</h2>
+            
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="setup-instructions">
+                <h3>📋 Quick Setup (First Time Only):</h3>
+                <ol>
+                    <li>
+                        <strong>Create a free Airtable account:</strong><br>
+                        Go to <a href="https://airtable.com/signup" target="_blank">airtable.com/signup</a> (takes 2 minutes)
+                    </li>
+                    <li>
+                        <strong>Copy this base template:</strong><br>
+                        Open <a href="https://airtable.com/appKRchJNGCPq8LBs/shrwzNqg5kIFZUqYk" target="_blank">this template</a> and click "Copy base" (or create your own base called "XGC Tracker")
+                    </li>
+                    <li>
+                        <strong>Get your API credentials:</strong><br>
+                        • Go to <a href="https://airtable.com/create/tokens" target="_blank">airtable.com/create/tokens</a><br>
+                        • Click "Create new token"<br>
+                        • Name it "XGC Tool"<br>
+                        • Add these scopes: <code>data.records:read</code> and <code>data.records:write</code><br>
+                        • Add access to your "XGC Tracker" base<br>
+                        • Click "Create token" and copy it
+                    </li>
+                    <li>
+                        <strong>Get your Base ID:</strong><br>
+                        • Open your Airtable base<br>
+                        • Click "Help" (?) in top right → "API documentation"<br>
+                        • Your Base ID is shown at the top (starts with "app")<br>
+                        • Example: <code>appKRchJNGCPq8LBs</code>
+                    </li>
+                    <li>
+                        <strong>Paste them below and connect!</strong>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="video-demo">
+                <h3>💡 Pro Tip:</h3>
+                <p><strong>Share with your team:</strong> Once you've set this up, share your Airtable base with teammates (click "Share" in Airtable). They can use the SAME Base ID and create their own API tokens to connect this tool. Everyone will see the same data in real-time!</p>
+            </div>
+            
+            <form id="setupForm">
+                <div class="form-group">
+                    <label for="apiToken">Airtable Personal Access Token *</label>
+                    <input type="password" id="apiToken" placeholder="patXXXXXXXXXXXXXXXX..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="baseId">Base ID *</label>
+                    <input type="text" id="baseId" placeholder="appXXXXXXXXXXXXXX" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Connect to Airtable</button>
+            </form>
+            
+            <div id="connectedStatus" style="display: none; margin-top: 30px;">
+                <div class="connected-status">
+                    <h3>✅ Connected Successfully!</h3>
+                    <p><strong>Base ID:</strong> <span id="displayBaseId"></span></p>
+                    <p style="margin-top: 15px;">Loading the full UGC tool interface...</p>
+                </div>
+                <button onclick="disconnect()" class="btn-secondary">Disconnect & Change Settings</button>
+            </div>
+        </div>
+        
+        <div id="appContent" style="display: none;">
+            <!-- The full UGC tool interface will load here -->
+            <div style="background: white; padding: 40px; border-radius: 8px; text-align: center;">
+                <h2>🎉 Connected to Airtable!</h2>
+                <p style="color: #666; margin: 20px 0;">Your team collaboration is now active.</p>
+                <p style="color: #666; margin: 20px 0;">The complete XGC search, library, and outreach tool will integrate here.</p>
+                
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; margin-top: 30px; text-align: left;">
+                    <h3 style="margin-bottom: 20px;">✨ What's working:</h3>
+                    <ul style="color: #666; line-height: 2.5;">
+                        <li>✅ Authentication with Airtable</li>
+                        <li>✅ Connection to your team's base</li>
+                        <li>✅ Ready for real-time data sync</li>
+                        <li>⏳ Full interface integration (in progress)</li>
+                    </ul>
+                    
+                    <p style="color: #666; margin-top: 30px;">Once I integrate the full tool interface with Airtable's API, you'll have:</p>
+                    <ul style="color: #666; line-height: 2.5; margin-top: 15px;">
+                        <li>📝 All search queries and categories</li>
+                        <li>💾 Save posts that sync to Airtable instantly</li>
+                        <li>📚 Visual content library</li>
+                        <li>📧 Outreach tracking</li>
+                        <li>💬 Team notes and collaboration</li>
+                        <li>🏷️ Tags, status tracking, bulk actions</li>
+                    </ul>
+                </div>
+                
+                <button onclick="testConnection()" class="btn-secondary" style="margin-top: 30px;">Test Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if already connected
+        const savedToken = localStorage.getItem('airtable_token');
+        const savedBaseId = localStorage.getItem('airtable_base_id');
+        
+        if (savedToken && savedBaseId) {
+            showConnectedStatus();
+        }
+        
+        // Setup form submission
+        document.getElementById('setupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            console.log('Form submitted');
+            
+            const token = document.getElementById('apiToken').value.trim();
+            const baseId = document.getElementById('baseId').value.trim();
+            
+            console.log('Token starts with:', token.substring(0, 10) + '...');
+            console.log('Base ID:', baseId);
+            
+            // Validate format
+            if (!token.startsWith('pat')) {
+                showError('Invalid token format. Token should start with "pat"');
+                return;
+            }
+            
+            if (!baseId.startsWith('app')) {
+                showError('Invalid Base ID format. Base ID should start with "app"');
+                return;
+            }
+            
+            console.log('Validation passed, attempting connection...');
+            
+            // Test connection
+            try {
+                const url = `https://api.airtable.com/v0/${baseId}/XGC%20Tracker?maxRecords=1`;
+                console.log('Fetching:', url);
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Error response:', errorData);
+                    
+                    if (response.status === 401) {
+                        throw new Error('Invalid token. Please check your Personal Access Token.');
+                    } else if (response.status === 404) {
+                        throw new Error('Base or table not found. Make sure you have a table called "XGC Tracker" in your base.');
+                    } else {
+                        throw new Error(`Connection failed: ${response.statusText} - ${errorData.error?.message || ''}`);
+                    }
+                }
+                
+                const data = await response.json();
+                console.log('Connection successful!', data);
+                
+                // Save credentials
+                localStorage.setItem('airtable_token', token);
+                localStorage.setItem('airtable_base_id', baseId);
+                
+                showSuccess('Connected successfully! Loading app...');
+                
+                setTimeout(() => {
+                    showConnectedStatus();
+                    document.getElementById('appContent').style.display = 'block';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Connection error:', error);
+                showError(error.message);
+            }
+        });
+        
+        function showConnectedStatus() {
+            document.getElementById('setupForm').style.display = 'none';
+            document.getElementById('connectedStatus').style.display = 'block';
+            document.getElementById('displayBaseId').textContent = localStorage.getItem('airtable_base_id');
+            
+            setTimeout(() => {
+                document.getElementById('setupScreen').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+            }, 2000);
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = '❌ ' + message;
+            errorDiv.classList.add('show');
+            setTimeout(() => errorDiv.classList.remove('show'), 6000);
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = '✅ ' + message;
+            successDiv.classList.add('show');
+            setTimeout(() => successDiv.classList.remove('show'), 3000);
+        }
+        
+        function disconnect() {
+            if (confirm('Are you sure you want to disconnect? You\'ll need to re-enter your credentials.')) {
+                localStorage.removeItem('airtable_token');
+                localStorage.removeItem('airtable_base_id');
+                location.reload();
+            }
+        }
+        
+        async function testConnection() {
+            const token = localStorage.getItem('airtable_token');
+            const baseId = localStorage.getItem('airtable_base_id');
+            
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${baseId}/XGC%20Tracker?maxRecords=3`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`✅ Connection successful!\n\nFound ${data.records.length} record(s) in your base.`);
+                } else {
+                    alert(`❌ Connection failed: ${response.statusText}`);
+                }
+            } catch (error) {
+                alert(`❌ Error: ${error.message}`);
+            }
+        }
+        
+        // Next steps: Integrate the full UGC tool interface
+        // This includes:
+        // - Search queries and categories
+        // - Post saving with all fields
+        // - Library view with filtering
+        // - Outreach tracking
+        // - Team notes
+        // - Bulk actions
+        // All syncing to/from Airtable in real-time
+    </script>
+</body>
+</html>
